@@ -1,0 +1,89 @@
+<div class="page-body">
+    <div class="page-header shadow-2 grid m-0">
+        <app-page-header back="../" [btn]="true" [desactivarTip]="true" titulo="Servicio" descripcion="detalle de servicio web externo"></app-page-header>
+    </div>
+    <div class="page-content">
+        <div class="panel-form-content">
+            <div class="panel-form-servicio">
+                <div class="grid m-0">
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-12">
+                                <p-divider align="center">
+                                    <div class="titulo-formulario">{{tituloFormulario}}</div>
+                                </p-divider>
+                            </div>
+                        </div>
+                        
+                        <div class="grid">
+                            <div class="col-12 flex align-items-end">
+                                <div class="dropdown-float-group mt-0 pt-0 w-100">
+                                    <label class="label-float-dropdown">Entidad </label>
+                                    <p-dropdown [options]="listaEntidades" [(ngModel)]="servicio.idEntidad" [filter]="true" optionLabel="entidad" optionValue="id"  placeholder="Seleccione una entidad" styleClass="input-pj w-100 dropdown-float"></p-dropdown>
+                                </div>
+                                <button type="button" pButton icon="pi pi-plus" styleClass="btn-pj-circle" class="ml-1 btn-pj-circle" (click)="entidadDialog = true;"></button>
+                            </div>
+                            
+                        </div>
+                        <div class="grid">
+                            <div class="p-float-label col-12 md-4 mt-2">
+                                <input id="txt-nombre" type="text" [(ngModel)]="servicio.nombreServicio" class="p-inputtext-sm input-pj w-100" autocomplete="off" pInputText> 
+                                <label for="txt-nombre">Nombre servicio</label>
+                            </div>
+                        </div>
+                        <div class="grid" >
+                            <div class="p-float-label col-12 mt-3">
+                                <textarea id="txt-descripcion" pInputTextarea [rows]="2" [(ngModel)]="servicio.descripcion" class="input-pj w-100" ></textarea>
+                                <label for="txt-descripcion">Descripción</label>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="p-float-label col-12 md-4 mt-2">
+                                <input id="txt-url" type="text" [(ngModel)]="servicio.url" class="p-inputtext-sm input-pj w-100" autocomplete="off" pInputText> 
+                                <label for="txt-url">URL</label>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="field-checkbox col-6 mt-2 ml-1">
+                                <p-checkbox [(ngModel)]="actualizarCredencial" [binary]="true" inputId="actualizarCredencial"></p-checkbox>
+                                <label for="actualizarCredencial">Actualizar credencial automatico</label>
+                            </div>
+                            <div *ngIf="actualizarCredencial" class="p-float-label col-4 md-4 mt-2">
+                                <p-inputNumber inputId="integeronly" [(ngModel)]="servicio.diasActualizarCredencial" inputStyleClass="p-inputtext-sm input-pj w-100"> </p-inputNumber>
+                                <!--<input id="txt-nro-dias" type="text" [(ngModel)]="servicio.diasActualizarCredencial" class="p-inputtext-sm input-pj w-100" autocomplete="off" pInputText>-->
+                                <label for="txt-nro-dias">Numero de días</label>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="dropdown-float-group col-12 sm:col-6 mt-0 py-0">
+                                <label class="label-float-dropdown">Estado</label>
+                                <p-dropdown [options]="estadosServicio" [(ngModel)]="servicio.activo"  optionLabel="name" optionValue="code" placeholder="Todas" styleClass="input-pj w-100 dropdown-float" [readonly]="servicioResponse.id==0"></p-dropdown>
+                            </div>
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+                <div class="grid m-0">
+                    <div class="col-12 py-2">
+                        <p-divider></p-divider>
+                    </div>
+                    <div class="col-12 center">
+                        <button pButton pRipple type="button" label="Guardar cambios"  icon="pi pi-save" iconPos="right" (click)="guardarCambios()"  class="p-button-rounded p-button-sm p-button-danger btn-pj "></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+ </div>
+
+ <p-dialog [(visible)]="entidadDialog" [style]="{width: '460px'}" header="Agregar entidad" [modal]="true" styleClass="dialog-primary" appendTo="body">
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="col-12">
+                <app-entidad-detalle></app-entidad-detalle>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

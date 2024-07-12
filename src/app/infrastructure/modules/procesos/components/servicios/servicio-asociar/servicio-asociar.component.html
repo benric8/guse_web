@@ -1,0 +1,80 @@
+
+<div class="page-body">
+    <div class="page-header shadow-2 grid m-0">
+        <app-page-header back="../" [btn]="true" [desactivarTip]="true" titulo="Servicio" descripcion="Configurar aplicativos por servicio"></app-page-header>
+    </div>
+    <div class="page-content">
+        <div class="panel-form-content">
+            <div class="panel-form-servicio">
+                <div class="grid m-0">
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-12">
+                                <p-divider align="center">
+                                    <div class="titulo-formulario">{{tituloFormulario}}</div>
+                                </p-divider>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12">
+                                <p-fieldset legend="Detalle servicio" [toggleable]="true">
+                                    <div><span class="title-detalle">Nombre servicio: </span> {{servicioResponse.nombreServicio}} </div>
+                                    <div><span class="title-detalle">Descripcion: </span> {{servicioResponse.descripcion}} </div>
+                                    <div><span class="title-detalle">URL: </span> {{servicioResponse.url}} </div>
+                                </p-fieldset>
+                            </div>
+                            
+                        </div>
+
+                        <div class="grid">
+                            <div class="col-12 flex align-items-end">
+                                <div class="dropdown-float-group py-0 md-4 mt-2 w-100">
+                                    <label for="firstname1" class="label-float-dropdown">Aplicativos asociados</label>
+                                    <p-multiSelect [options]="listaAplicativos" [(ngModel)]="aplicativosSeleccionado" defaultLabel="Seleccione los aplicativos" optionLabel="aplicativo" display="chip" styleClass="input-pj w-100 dropdown-float" appendTo="body"></p-multiSelect>
+                                    <!--<p-dropdown [options]="perfil" [(ngModel)]="perfilesSeleccionado" optionLabel="name" optionValue="code" styleClass="input-pj w-100 dropdown-float"></p-dropdown>-->
+                                </div>
+                                <button type="button" pButton icon="pi pi-plus" styleClass="btn-pj-circle" class="ml-1 btn-pj-circle" (click)="aplicacionDialog = true"></button>
+                            </div>
+                        </div>
+                        
+                        <div class="grid" *ngIf="aplicativosSeleccionado.length > 0">
+                            <div class="col-12 mt-2">
+                                <p-fieldset legend="Aplicativos asociados al servicio" [toggleable]="true">
+                                    <div class="grid">
+                                        <div *ngFor="let itemAplicativo of aplicativosSeleccionado; let indice = index"   class="col-12 py-1 item-aplicativo">
+                                            <div *ngIf="indice>0">
+                                                <p-divider></p-divider>
+                                            </div>
+                                            <div><span class="title-detalle">Nombre aplicativo: </span> {{itemAplicativo.aplicativo}} </div>
+                                            <div><span class="title-detalle">Descripción: </span> {{itemAplicativo.descripcion}} </div>
+                                        </div>
+    
+                                    </div>
+                                </p-fieldset>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="grid m-0">
+                    <div class="col-12 py-2">
+                        <p-divider></p-divider>
+                    </div>
+                    <div class="col-12 center">
+                        <button pButton pRipple type="button" label="Guardar cambios"  icon="pi pi-save" iconPos="right" (click)="registrarConfServicio()"  class="p-button-rounded p-button-sm p-button-danger btn-pj "></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+ </div>
+ <p-dialog [(visible)]="aplicacionDialog" [style]="{width: '460px'}" header="Agregar aplicativo" [modal]="true" styleClass="dialog-primary" appendTo="body">
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="col-12">
+                <app-aplicativo-detalle></app-aplicativo-detalle>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

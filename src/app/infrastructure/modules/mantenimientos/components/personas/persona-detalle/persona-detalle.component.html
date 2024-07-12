@@ -1,0 +1,72 @@
+<div class="grid m-0">
+    <div class="col-12">
+        <div class="grid">
+            <div class="dropdown-float-group col-6 sm:col-6 md-4 py-0 pr-1">
+                <label for="firstname1" class="label-float-dropdown">Documento</label>
+                <p-dropdown [options]="listaTiposDoc" [(ngModel)]="persona.tipoDocumento" optionLabel="descripcion" optionValue="id" placeholder="Seleccionar" (onChange)="eventSelectTipoDoc($event)" styleClass="input-pj w-100 dropdown-float" appendTo="body" ></p-dropdown>
+            </div>
+            <div class="p-float-label col-5 sm:col-5 mt-input-dropdown px-0">
+                <input id="txt-num-doc" type="text" [(ngModel)]="persona.documentoIdentidad"  class="p-inputtext-sm input-pj w-100" autocomplete="off" (change)="consultarSiga()"  pInputText > 
+                <label for="txt-num-doc">Número</label>
+            </div>
+            <div *ngIf="persona.tipoDocumento === '1'" class="col-2 sm:col-1 mt-2 flex justify-content-start align-items-end pl-0">
+                <button pButton pRipple icon="pi pi-search" iconPos="left" (click)="consultarSiga()"  class="p-button-sm btn-pj" ></button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="p-float-label col-12 sm:col-6 md-4 mt-2">
+                <input id="txt-nombre" type="text" [(ngModel)]="persona.nombres" class="p-inputtext-sm input-pj w-100" autocomplete="off" pInputText [readonly]="datosSiga"> 
+                <label for="txt-nombre">Nombre(s)</label>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="p-float-label col-12 sm:col-6 md-4 mt-2">
+                <input id="txt-paterno" type="text" [(ngModel)]="persona.apellidoPaterno" class="p-inputtext-sm input-pj w-100" autocomplete="off" pInputText [readonly]="datosSiga"> 
+                <label for="txt-paterno">Apellido Paterno</label>
+            </div>
+            <div class="p-float-label col-12 sm:col-6 md-4 mt-2">
+                <input id="txt-materno" type="text" [(ngModel)]="persona.apellidoMaterno" class="p-inputtext-sm input-pj w-100" autocomplete="off" pInputText [readonly]="datosSiga"> 
+                <label for="txt-materno">Apellido Materno</label>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="p-float-label col-12 sm:col-6 mt-3">
+                <p-calendar [(ngModel)]="persona.fechaNacimiento" [yearNavigator]="true" yearRange="2000:2030" [autoZIndex]="true" appendTo="body" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" styleClass="w-100" inputStyleClass="p-inputtext-sm input-pj w-100" yearRange="1900:2030" inputId="fechaI" dataType="string" [showIcon]="false"></p-calendar>
+                <label for="txt-fecha-na">Fecha de Nacimiento</label>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="p-float-label col-12 mt-2">
+                <input id="txt-correo" type="text" [(ngModel)]="persona.email" class="p-inputtext-sm input-pj w-100" autocomplete="off" pInputText> 
+                <label for="txt-correo">Correo electrónico gmail</label>
+            </div>
+        </div>
+
+        <div class="grid" >
+            <div class="p-float-label col-12 mt-3">
+                <textarea id="txt-direccion" pInputTextarea [rows]="2" [(ngModel)]="persona.direccion" class="input-pj w-100"></textarea>
+                <label class="" for="txt-direccion">Dirección completa</label>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="dropdown-float-group col-12 sm:col-6 mt-0 py-0">
+                <label class="label-float-dropdown">Estado</label>
+                <p-dropdown [options]="estadosPersona" [(ngModel)]="persona.activo"  optionLabel="name" optionValue="code" placeholder="Todas" styleClass="input-pj w-100 dropdown-float" [readonly]="true"></p-dropdown>
+            </div>
+        </div>
+    </div>
+   
+</div>
+<div class="grid m-0">
+    <div class="col-12 py-2">
+        <p-divider></p-divider>
+    </div>
+    <div class="col-12 center">
+        <button pButton pRipple type="button" label="Guardar cambios"  icon="pi pi-save" iconPos="right" (click)="guardarCambios()"  class="p-button-rounded p-button-sm p-button-danger btn-pj "></button>
+    </div>
+</div>

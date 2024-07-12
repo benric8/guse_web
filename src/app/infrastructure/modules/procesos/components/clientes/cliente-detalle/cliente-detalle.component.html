@@ -1,0 +1,123 @@
+<div class="page-body">
+    <div class="page-header shadow-2 grid m-0">
+        <app-page-header back="../" [btn]="true" [desactivarTip]="true" titulo="Cliente" descripcion="detalle de cliente"></app-page-header>
+    </div>
+    <div class="page-content">
+        <div class="panel-form-content">
+            <div class="panel-form-cliente">
+                <div class="grid m-0">
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-12">
+                                <p-divider align="center">
+                                    <div class="titulo-formulario">{{tituloFormulario}}</div>
+                                </p-divider>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 flex align-items-end">
+                                <div class="dropdown-float-group  mt-0 pt-0 w-100">
+                                    <label class="label-float-dropdown">Aplicativo </label>
+                                    <p-dropdown [options]="listaAplicativos" [(ngModel)]="cliente.idAplicativo" [filter]="true" (onChange)="changeComboAplicativos($event)" optionLabel="aplicativo" optionValue="id"  placeholder="Seleccione una aplicativo" styleClass="input-pj w-100 dropdown-float" [readonly]="clienteResponse.id>0"></p-dropdown>
+                                </div>
+                                <button type="button" pButton icon="pi pi-plus" styleClass="btn-pj-circle" class="ml-1 btn-pj-circle" (click)="aplicacionDialog = true" [disabled]="clienteResponse.id>0"></button>
+                            </div>
+                        </div>
+
+                        <div class="grid" *ngIf="aplicativoSeleccionado">
+                            <div class="col-12">
+                                <p-fieldset legend="Detalle aplicativo" [toggleable]="true">
+                                    <div><span class="title-detalle">Nombre aplicativo: </span> {{aplicativoSeleccionado.aplicativo}} </div>
+                                    <div><span class="title-detalle">Descripción: </span> {{aplicativoSeleccionado.descripcion}} </div>
+                                </p-fieldset>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="p-float-label col-12 md-4 mt-2">
+                                <input id="txt-usuario" type="text" [(ngModel)]="cliente.usuario" class="p-inputtext-sm input-pj w-100" autocomplete="off"  [readonly]="clienteResponse.id>0" pInputText> 
+                                <label for="txt-usuario">Usuario</label>
+                            </div>
+                        </div>
+
+                        <div class="grid" *ngIf="clienteResponse.id==0">
+                            <div class="p-float-label col-12 md-4 mt-2">
+                                <p-password
+                                    [toggleMask]="true"
+                                    [feedback]="true" 
+                                    [(ngModel)]="cliente.clave"
+                                    name="claveNueva"
+                                    promptLabel="Clave"
+                                    weakLabel="Seguridad Debil"
+                                    mediumLabel="Seguridad Media"
+                                    strongLabel="Seguridad Alta"
+                                    class="input-block" 
+                                    styleClass="input-block w-100" 
+                                    inputStyleClass="p-inputtext input-pj w-100 rounded-pj"
+                                    required
+                                ></p-password>
+                                <label>clave</label>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 flex align-items-end">
+                                <div class="dropdown-float-group mt-0 pt-0 w-100">
+                                    <label class="label-float-dropdown">Persona responsable </label>
+                                    <p-dropdown [options]="listaPersonas" [(ngModel)]="cliente.idPersona" [filter]="true" (onChange)="changeComboPersonas($event)" optionLabel="apellidosNombres" optionValue="id"  placeholder="Seleccione una persona" styleClass="input-pj w-100 dropdown-float"></p-dropdown>
+                                </div>
+                                <button type="button" pButton icon="pi pi-plus" styleClass="btn-pj-circle" class="ml-1 btn-pj-circle" (click)="personaDialog = true"></button>
+                            </div>
+                            
+                        </div>
+                        <div class="grid" *ngIf="personaSeleccionado">
+                            <div class="col-12">
+                                <p-fieldset legend="Detalle persona" [toggleable]="true">
+                                    <div><span class="title-detalle">Nombre y apellidos: </span> {{personaSeleccionado.apellidosNombres}} </div>
+                                    <div><span class="title-detalle">Nro documento: </span> {{personaSeleccionado.documentoIdentidad}} </div>
+                                </p-fieldset>
+                            </div>
+                            
+                        </div>
+                        <div class="grid">
+                            <div class="dropdown-float-group col-12 sm:col-6 mt-0 py-0">
+                                <label class="label-float-dropdown">Estado</label>
+                                <p-dropdown [options]="estadosCliente" [(ngModel)]="cliente.activo"  optionLabel="name" optionValue="code" placeholder="Todas" styleClass="input-pj w-100 dropdown-float" [readonly]="clienteResponse.id==0"></p-dropdown>
+                            </div>
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+                <div class="grid m-0">
+                    <div class="col-12 py-2">
+                        <p-divider></p-divider>
+                    </div>
+                    <div class="col-12 center">
+                        <button pButton pRipple type="button" label="Guardar cambios"  icon="pi pi-save" iconPos="right" (click)="guardarCambios()"  class="p-button-rounded p-button-sm btn-pj "></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+ </div>
+
+ <p-dialog [(visible)]="aplicacionDialog" [style]="{width: '460px'}" header="Agregar aplicativo" [modal]="true" styleClass="dialog-primary" appendTo="body">
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="col-12">
+                <app-aplicativo-detalle></app-aplicativo-detalle>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="personaDialog" [style]="{width: '520px'}" header="Agreagr Persona" [modal]="true" styleClass="dialog-primary" appendTo="body">
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="col-12">
+                <app-persona-detalle></app-persona-detalle>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,31 @@
+<div class="grid m-0">
+    <div class="col-12">
+        <div class="grid">
+            <div class="p-float-label col-12 md-4 mt-2">
+                <input id="txt-aplicativo" type="text" [(ngModel)]="aplicativo.aplicativo" class="p-inputtext-sm input-pj w-100" autocomplete="off" pInputText> 
+                <label for="txt-aplicativo">Aplicativo</label>
+            </div>
+        </div>
+        <div class="grid" >
+            <div class="p-float-label col-12 mt-3">
+                <textarea id="txt-descripcion" pInputTextarea [rows]="2" [(ngModel)]="aplicativo.descripcion" class="input-pj w-100" ></textarea>
+                <label for="txt-descripcion">Descripción</label>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="dropdown-float-group col-12 sm:col-6 mt-0 py-0">
+                <label class="label-float-dropdown">Estado</label>
+                <p-dropdown [options]="estadosAplicativo" [(ngModel)]="aplicativo.activo"  optionLabel="name" optionValue="code" placeholder="Todas" styleClass="input-pj w-100 dropdown-float" [readonly]="true"></p-dropdown>
+            </div>
+        </div>
+    </div>
+   
+</div>
+<div class="grid m-0">
+    <div class="col-12 py-2">
+        <p-divider></p-divider>
+    </div>
+    <div class="col-12 center">
+        <button pButton pRipple type="button" label="Guardar cambios"  icon="pi pi-save" iconPos="right" (click)="guardarCambios()"  class="p-button-rounded p-button-sm p-button-danger btn-pj "></button>
+    </div>
+</div>

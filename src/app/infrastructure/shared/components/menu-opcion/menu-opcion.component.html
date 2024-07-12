@@ -1,0 +1,17 @@
+<ul class="menu-sistema" [ngClass]="{'submenu': !menuRaiz,'active':submenoAbierto }">
+    <li pRipple *ngFor="let item of listaOpciones; let indice = index" class="opcion" [ngClass]="{'indentado':!menuRaiz,'padre': item.hijos.length>0, 'selected': item.select, 'active':item.activate}" (click)="goRoute(item)">
+        <a>
+            <div>
+                <div class="justify-content-center flex">
+                    <i class="{{item.icon}}"></i>
+                </div>
+                
+                <div class="justify-content-center flex">
+                    <span [ngClass]="{'hide': menuMin}" >{{item.title}}</span>
+                </div>
+            </div>
+            <i  *ngIf="item.hijos.length >0"  class="pi" [ngClass]="{'pi-angle-right': !item.activate,'pi-angle-down': item.activate,'icono-padre-min': menuMin, 'icono-padre': !menuMin}"></i>
+        </a>
+        <app-menu-opcion *ngIf="item.hijos.length >0" [menuMin]="menuMin" [menuRaiz]="false" [mobile]="mobile" [listaOpciones]="item.hijos" (menuIndexEvent)="goRouteHijos($event)" (menuActivarEvent)="clickActivarEvent($event)" [submenoAbierto]="item.activate"></app-menu-opcion>
+    </li>
+</ul>
